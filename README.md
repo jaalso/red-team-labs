@@ -7,46 +7,25 @@ No unauthorised systems were accessed. All work complies with Swiss law and ethi
 
 ## 📁 Labs
 
-### 01 · Network Penetration Testing Lab
-**Tools:** nmap · Metasploit · Hydra · Wireshark  
-**Target:** Metasploitable 2 (isolated VirtualBox lab)
-
-Full kill-chain penetration test from network discovery to root shell.
-
+### Network Penetration Testing Lab
+Performed a full penetration test lifecycle: reconnaissance, scanning, vulnerability identification, exploitation, and post-exploitation. Documented findings in a structured report format.
+- **Tools:** nmap · Metasploit · Hydra
+- Target: Metasploitable 2 (192.168.56.XXX)
 - ✅ Network scanning with nmap (SYN, version, OS detection)
-- ✅ Exploitation via Metasploit — CVE-2011-2523 (vsftpd backdoor), CVE-2007-2447 (Samba RCE)
-- ✅ Root shell obtained — uid=0(root) confirmed
-- ✅ Post-exploitation: /etc/shadow extraction, full filesystem enumeration
-- ✅ Kill chain documented across all 7 MITRE ATT&CK phases
-- ✅ Secondary backdoor on port 1524 (netcat bindshell) identified
+- ✅ Service enumeration and vulnerability mapping
+- ✅ Exploitation via Metasploit Framework
+- ✅ Brute force attacks with Hydra
 
-📄 **[Download Full Lab Report (PDF)](https://github.com/jaalso/cybersecurity-portfolio/raw/main/Pentest_Lab_Writeup_protected.pdf)**  
-> 🔒 Password protected — contact me via [LinkedIn](https://linkedin.com/in/jaalso)
+**nmap version scan — identifying vsftpd 2.3.4**
+<br><img width="611" height="167" alt="image" src="https://github.com/user-attachments/assets/d51c3811-2c13-4a6e-8a3d-8f0e622d4b43" />
 
----
+**Metasploit — root shell obtained**
+<br><img width="531" height="117" alt="image" src="https://github.com/user-attachments/assets/a8a17a0f-5d3e-42d8-8ba0-347b4e12013e" />
+<br><img width="401" height="215" alt="image" src="https://github.com/user-attachments/assets/33cb446c-2d39-4a2c-9f3f-dcbf43f040d4" />
 
-### 02 · GoPhish Phishing Simulation
-**Tools:** GoPhish · Kali Linux · SMTP  
-**Status:** 🔜 Write-up coming soon
 
-Controlled phishing simulation campaign testing user awareness and measuring click/credential rates.
-
-- ✅ Email template creation and spoofing techniques
-- ✅ SMTP configuration and DNS record analysis (SPF, DKIM, DMARC)
-- ✅ Campaign tracking and results reporting
-
----
-
-### 03 · Offensive Email Attack Chain
-**Tools:** GoPhish · emlAnalyzer · CyberChef · MXToolbox  
-**Status:** 🔜 Write-up coming soon
-
-End-to-end offensive email attack chain documentation.
-
-- ✅ Header analysis and spoofing detection
-- ✅ MIME structure and attachment weaponisation
-- ✅ IOC identification across the full delivery chain
-
+> 📄 **[Download Full Lab Report (PDF)](https://github.com/jaalso/cybersecurity-portfolio/raw/main/Pentest_Lab_Writeup_protected.pdf)**
+<br>🔒 Password protected — contact me via [LinkedIn](https://linkedin.com/in/jaalso) to request access
 ---
 
 ## Tools Used
