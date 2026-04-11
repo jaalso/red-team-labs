@@ -1,5 +1,3 @@
-# 🔴 Red Team Labs
-
 > Offensive security lab write-ups  
  
 All labs conducted in isolated VirtualBox environments or on authorised external targets.
