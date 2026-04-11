@@ -188,13 +188,16 @@ template approaches, and one full integrated campaign combining GoPhish and Zphi
 
 ---
 
-## Tools Used
+## 🧰 Tools Used
 
 | Category | Tools |
 |---|---|
-| Scanning & Recon | nmap · netdiscover · Wireshark |
+| Scanning & Recon | nmap · netdiscover · Wireshark · TShark |
 | Exploitation | Metasploit · Hydra · CrackMapExec |
-| Phishing | GoPhish · emlAnalyzer · CyberChef |
+| Phishing Simulation | GoPhish · Zphisher · SET |
+| Email Testing | swaks · CyberChef · emlAnalyzer |
+| Tunneling | Ngrok · Cloudflared · LocalXpose |
+| Post-Exploitation | Metasploit shell · netcat |
 | Platform | Kali Linux · Metasploitable 2 · VirtualBox |
 
 ---
