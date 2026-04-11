@@ -73,29 +73,69 @@ Phase 1 — Infrastructure Setup
 - ✅ DNS persistence fix — /etc/resolv.conf locked with chattr +i to survive sudo sessions
 - ✅ SMTP delivery verified with swaks independently before GoPhish configuration
 
+ **GoPhish setup**
+```bash
+chmod +x gophish
+sudo ./gophish                           # launch admin panel at https://127.X.X.X:3XXX
+
+# DNS persistence fix — survives sudo and reboots
+echo "nameserver X.X.X.X" | sudo tee /etc/resolv.conf
+sudo chattr +i /etc/resolv.conf          # lock file from being overwritten
+
+# Verify DNS resolution
+ping smtp.xxxx.com -c 3
+```
+
 Phase 2 — Credential Harvesting Pages
 - ✅ Zphisher — pixel-perfect Google login clone, credentials captured to auth/usernames.dat
 - ✅ SET (Social Engineering Toolkit) — cloned Schroders eServices corporate login portal; visually identical to real page
 - ✅ Three tunnel services tested: Cloudflared (no account) · Ngrok · LocalXpose
+
+```bash
+swaks --to $RECIPIENTEMAIL$ \
+      --from $SENDEREMAIL$ \
+      --server smtp.£HOSTEMAIL.com:$PORT \
+      --auth LOGIN \
+      --auth-user $SENDEREMAIL$ \
+      --auth-password [APP_PASSWORD] \
+      --tls
+# Expected: 235 2.7.0 Accepted — authentication successful
+# Expected: 250 2.0.0 OK — email accepted for delivery
+```
 
 Phase 3 — Email Delivery
 - ✅ Postfix direct relay failed — Outlook rejected port 25 from unknown IP (Layer 1 IP reputation gateway confirmed)
 - ✅ Gmail SMTP relay succeeded — authenticated relay bypasses reputation checks
 - ✅ swaks verified SMTP authentication independently (235 2.7.0 Accepted)
 
+```bash
+git clone https://github.com/htr-tech/zphisher.git
+cd zphisher
+chmod +x zphisher.sh
+bash zphisher.sh                       
+# Victim IP saved to:   auth/ip.txt
+```
+
 Phase 4 — Email Template Crafting
 - ✅ Version 1 — custom Google security alert HTML with {{.FirstName}} and {{.URL}} variables
 - ✅ Version 2 — real Google security alert cloned using forensic skills in reverse:
 
 Exported .eml from Outlook
-Decoded quoted-printable encoding with CyberChef From Quoted Printable
-Replaced all na01.safelinks.protection.outlook.com URLs with {{.URL}} via regex
-Result: phishing email indistinguishable from a legitimate Google security alert
+Decoded quoted-printable encoding with CyberChef 
 <br><img width="677" height="925" alt="image" src="https://github.com/user-attachments/assets/9cbcbb6e-111e-498f-99b0-a4a452a16e9d" />
 
 Phase 5 — GoPhish Campaign Results
 <br><img width="867" height="939" alt="image" src="https://github.com/user-attachments/assets/c6c98bc5-364c-4864-97fa-38bad07c9ddd" />
 <br><img width="862" height="549" alt="image" src="https://github.com/user-attachments/assets/45dcf5f6-cdb7-4291-8dc1-beb906bac0ae" />
+```bash
+sudo setoolkit
+
+# Post-back IP: 127.x.x.x
+# URL to clone: https://victimurl
+
+# Expose via Ngrok
+ngrok http 80
+```
 | Metric | Result | Notes |
 |---|---|---|
 | Email Sent | ✅ 1 | Delivered via Gmail SMTP |
@@ -138,28 +178,13 @@ MITRE ATT&CK Mapping
 | Credentials from Web Browsers | T1555.003 | Zphisher | Harvesting submitted login credentials |
 | Valid Accounts | T1078 | Captured credentials | Would enable account access post-capture |
 
+This lab successfully demonstrated the complete offensive email attack chain from infrastructure
+setup through credential capture and campaign tracking. Six distinct phases were executed,
+covering three phishing page tools, four tunnel services, two SMTP delivery methods, two email
+template approaches, and one full integrated campaign combining GoPhish and Zphisher
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
 
 ## Tools Used
 
