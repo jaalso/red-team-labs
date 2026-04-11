@@ -59,43 +59,104 @@ nc $HOST 1524                            # secondary backdoor
 <br>🔒 Password protected — contact me via [LinkedIn](https://linkedin.com/in/jaalso) to request access
 
 ---
-### GoPhish: Phishing Simulation 
-This lab provided hands-on experience with the complete phishing simulation lifecycle and
-reinforced several key concepts from the email security module.
-<br>**Tools:** GoPhish · Postfix · Gmail SMTP · Ngrok · CyberChef
 
-Infrastructure Setup
-- ✅ GoPhish v0.12.1 deployed on Kali Linux VM — admin panel at https://127.0.X.X:XXXX
+### GoPhish Phishing Simulation & Offensive Email Attack Chain
+Complete offensive email attack chain across 6 phases — from infrastructure setup through
+credential capture and campaign tracking. Mirrors the functionality of commercial platforms
+like KnowBe4, Hoxhunt, and Riot at zero cost.
+<br>**Tools:** GoPhish · Zphisher · SET · swaks · Ngrok · Cloudflared · CyberChef · Postfix
+
+Phase 1 — Infrastructure Setup
+- ✅ GoPhish v0.12.1 deployed on Kali Linux — admin panel at https://127.X.X.X:3XXX
 - ✅ Gmail SMTP configured as authenticated relay with App Password
-- ✅ Ngrok tunnel exposing local landing page publicly without a purchased domain
+- ✅ Ngrok + Cloudflared + LocalXpose tested as tunnel options — no paid domain required
 - ✅ DNS persistence fix — /etc/resolv.conf locked with chattr +i to survive sudo sessions
-- ✅ Delivery verified with swaks before configuring GoPhish
-  
-Campaign Configuration
-- ✅ Sending profile — Gmail SMTP with App Password authentication
-- ✅ Email template v1 — custom Google security alert with {{.FirstName}} and {{.URL}} variables
-- ✅ Email template v2 — real Google security alert cloned using CyberChef quoted-printable decode + regex URL replacement → indistinguishable from legitimate email
-- ✅ Landing page — custom Google login form with credential capture enabled
-- ✅ Users & Groups — targeted test account with CEO role for realistic pretext
+- ✅ SMTP delivery verified with swaks independently before GoPhish configuration
 
-**Campaign Results**
+Phase 2 — Credential Harvesting Pages
+- ✅ Zphisher — pixel-perfect Google login clone, credentials captured to auth/usernames.dat
+- ✅ SET (Social Engineering Toolkit) — cloned Schroders eServices corporate login portal; visually identical to real page
+- ✅ Three tunnel services tested: Cloudflared (no account) · Ngrok · LocalXpose
+
+Phase 3 — Email Delivery
+- ✅ Postfix direct relay failed — Outlook rejected port 25 from unknown IP (Layer 1 IP reputation gateway confirmed)
+- ✅ Gmail SMTP relay succeeded — authenticated relay bypasses reputation checks
+- ✅ swaks verified SMTP authentication independently (235 2.7.0 Accepted)
+
+Phase 4 — Email Template Crafting
+- ✅ Version 1 — custom Google security alert HTML with {{.FirstName}} and {{.URL}} variables
+- ✅ Version 2 — real Google security alert cloned using forensic skills in reverse:
+
+Exported .eml from Outlook
+Decoded quoted-printable encoding with CyberChef From Quoted Printable
+Replaced all na01.safelinks.protection.outlook.com URLs with {{.URL}} via regex
+Result: phishing email indistinguishable from a legitimate Google security alert
+<br><img width="677" height="925" alt="image" src="https://github.com/user-attachments/assets/9cbcbb6e-111e-498f-99b0-a4a452a16e9d" />
+
+Phase 5 — GoPhish Campaign Results
 <br><img width="867" height="939" alt="image" src="https://github.com/user-attachments/assets/c6c98bc5-364c-4864-97fa-38bad07c9ddd" />
 <br><img width="862" height="549" alt="image" src="https://github.com/user-attachments/assets/45dcf5f6-cdb7-4291-8dc1-beb906bac0ae" />
+| Metric | Result | Notes |
+|---|---|---|
+| Email Sent | ✅ 1 | Delivered via Gmail SMTP |
+| Email Opened | ✅ 1 | Tracking pixel loaded by Outlook |
+| Clicked Link | ✅ 1 | Victim clicked "Verify My Account" |
+| Submitted Data | ⚪ 0 | Redirect configured |
+| Email Reported | ⚪ 0 | Victim did not report as phishing |
+| Delivery location | ⚠️ Junk | Low sender reputation |
 
-**Real Email Template Cloning**
-<br><img width="768" height="586" alt="image" src="https://github.com/user-attachments/assets/fea054df-a78a-47bb-baf5-5f8cfa79292f" />
+Phase 6 — Combined Attack Chain (GoPhish + Zphisher)
+<br><img width="443" height="299" alt="image" src="https://github.com/user-attachments/assets/bd3254ac-4daf-45d5-a0c7-6e077d93b8af" />
+| Step | Component | Action | Result |
+|---|---|---|---|
+| 1 | GoPhish | Sends phishing email via Gmail SMTP | Email delivered to target |
+| 2 | Victim | Opens email | GoPhish records ✅ Email Opened |
+| 3 | Victim | Clicks "Check Activity" button | GoPhish records ✅ Clicked Link |
+| 4 | GoPhish | Redirects via tracking link to Zphisher URL | Request reaches Zphisher server |
+| 5 | Zphisher | Serves pixel-perfect Google login clone | Victim sees convincing fake page |
+| 6 | Victim | Enters email and password | Zphisher captures credentials |
+| 7 | Zphisher | Saves to auth/usernames.dat + auth/ip.txt | Attacker has credentials + victim IP |
+| 8 | Zphisher | Redirects victim to real accounts.google.com | Victim thinks login failed, tries again |
 
-> 📄 **[Download Full Lab Report (PDF)](https://github.com/jaalso/cybersecurity-portfolio/raw/main/gophish_lab_report_protected.pdf)**
-<br>🔒 Password protected — contact me via [LinkedIn](https://linkedin.com/in/jaalso) to request access
+Authentication Analysis
+| Check | Result | Why It Passed | What It Missed |
+|---|---|---|---|
+| SPF | ✅ PASS | Gmail authorised to send for gmail.com | Cannot check message intent or content |
+| DKIM | ✅ PASS | Email signed by Gmail's valid DKIM key | Signing domain ≠ legitimate purpose |
+| DMARC | ✅ PASS | From domain aligns with DKIM signing domain | p=none on Gmail means no enforcement |
+| Outlook delivery | ⚠️ Junk | Low sender reputation score | Still delivered — just to Junk |
+| MFA | 🛡️ Would block | Requires second factor | Only control that fully stops attack |
 
-GoPhish lab successfully demonstrated a complete phishing simulation from infrastructure
-setup through email delivery, link click tracking, and landing page credential capture. All five
-components of a GoPhish campaign were configured and tested:
-- Sending Profile — Gmail SMTP with App Password authentication
-- Email Template — custom HTML and real Google email clone
-- Landing Page — custom Google login form with credential capture
-- Users & Groups — targeted test account with role information
-- Campaign — launched, tracked, and results recorded
+MITRE ATT&CK Mapping
+| Technique | ID | Tool Used | Description |
+|---|---|---|---|
+| Phishing | T1566 | GoPhish + Zphisher | Primary attack vector |
+| Spearphishing Link | T1566.002 | GoPhish campaign | Email with tracked phishing URL |
+| Acquire Infrastructure | T1583 | Ngrok · Cloudflared · LocalXpose | Tunnel services as attack infrastructure |
+| Compromise Infrastructure | T1584 | Gmail account | Legitimate service abused for SMTP relay |
+| Masquerading | T1036 | Google email clone · URL masking | Impersonating legitimate Google alerts |
+| Credentials from Web Browsers | T1555.003 | Zphisher | Harvesting submitted login credentials |
+| Valid Accounts | T1078 | Captured credentials | Would enable account access post-capture |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
