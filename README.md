@@ -183,6 +183,8 @@ setup through credential capture and campaign tracking. Six distinct phases were
 covering three phishing page tools, four tunnel services, two SMTP delivery methods, two email
 template approaches, and one full integrated campaign combining GoPhish and Zphisher
 
+> 📄 **[Download Full Lab Report (PDF)](https://github.com/jaalso/cybersecurity-portfolio/raw/main/offensive_email_chain_report_protected.pdf)**
+<br>🔒 Password protected — contact me via [LinkedIn](https://linkedin.com/in/jaalso) to request access
 
 ---
 
