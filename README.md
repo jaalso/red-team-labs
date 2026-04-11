@@ -122,11 +122,11 @@ Phase 4 — Email Template Crafting
 
 Exported .eml from Outlook
 Decoded quoted-printable encoding with CyberChef 
-<br><img width="677" height="925" alt="image" src="https://github.com/user-attachments/assets/9cbcbb6e-111e-498f-99b0-a4a452a16e9d" />
+<br><img width="600" height="925" alt="image" src="https://github.com/user-attachments/assets/9cbcbb6e-111e-498f-99b0-a4a452a16e9d" />
 
 Phase 5 — GoPhish Campaign Results
-<br><img width="867" height="939" alt="image" src="https://github.com/user-attachments/assets/c6c98bc5-364c-4864-97fa-38bad07c9ddd" />
-<br><img width="862" height="549" alt="image" src="https://github.com/user-attachments/assets/45dcf5f6-cdb7-4291-8dc1-beb906bac0ae" />
+<br><img width="600" height="939" alt="image" src="https://github.com/user-attachments/assets/c6c98bc5-364c-4864-97fa-38bad07c9ddd" /> 
+<br><img width="600" height="549" alt="image" src="https://github.com/user-attachments/assets/45dcf5f6-cdb7-4291-8dc1-beb906bac0ae" />
 ```bash
 sudo setoolkit
 
