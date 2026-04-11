@@ -134,7 +134,7 @@ sudo setoolkit
 # URL to clone: https://victimurl
 
 # Expose via Ngrok
-ngrok http 80
+ngrok http $PROTOCOL
 ```
 | Metric | Result | Notes |
 |---|---|---|
