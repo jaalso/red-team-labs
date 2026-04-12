@@ -53,7 +53,7 @@ Phase 3 Post-Exploitation
 
 ---
 
-### GoPhish Phishing Simulation & Offensive Email Attack Chain
+### GoPhish: Phishing Simulation & Offensive Email Attack Chain
 Complete offensive email attack chain across 6 phases — from infrastructure setup through
 credential capture and campaign tracking. Mirrors the functionality of commercial platforms
 like KnowBe4, Hoxhunt, and Riot at zero cost.
