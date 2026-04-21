@@ -8,9 +8,14 @@ No unauthorised systems were accessed. All work complies with Swiss law and ethi
 ## 📁 Labs
 
 ### Network Penetration Testing Lab
-Performed a full penetration test lifecycle: reconnaissance, scanning, vulnerability identification, exploitation, and post-exploitation. Documented findings in a structured report format.
-<br>**Tools:** nmap · Metasploit · Hydra
-<br>Target: Metasploitable 2 (192.168.56.XXX)
+Simulated an SMB brute-force attack from Kali Linux against a Windows 10 target, then switched to analyst mode and investigate the attack using Windows forensic artifacts — proving execution,
+identifying the attack timeline, and documenting findings in IR report format. This lab demonstrates the complete SOC analyst workflow:
+Attack simulation (Kali) → Artifact collection (WIN10test) → Forensic parsing (EZ Tools) → IR report
+<br>**Tools:** nmap · CrackMapExec · Hydra · PECmd · AmcacheParser · AppCompatCacheParser · EvtxECmd · EZ Tools Suite
+<br>Target: Target: WIN10TEST ($VICTIMIP) — SMB port 445
+
+- ✅ Key Finding — Brute Force Attack Reconstructed from Logs
+
 - ✅ Network scanning with nmap (SYN, version, OS detection)
 - ✅ Service enumeration and vulnerability mapping
 - ✅ Exploitation via Metasploit Framework
