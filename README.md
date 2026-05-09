@@ -7,7 +7,19 @@ No unauthorised systems were accessed. All work complies with Swiss law and ethi
 
 ## 📁 Labs
 
-### Network Penetration Testing Lab
+Offensive security · Penetration testing · Exploitation · Phishing simulation
+
+| # | Lab | Tools | Status |
+|---|---|---|---|
+| 01 | Network Penetration Testing | nmap · Metasploit · Hydra | ✅ Complete |
+| 02 | GoPhish Phishing Simulation & Offensive Email Attack Chain | GoPhish · Zphisher · SET · Ngrok · Cloudflared · Postfix | ✅ Complete  |
+| 03 | WordPress Full Compromise (Bigware/Dockerlabs) — CVE-2025-34077 | nmap · WPScan · Metasploit · netcat | ✅ Complete |
+| 04 | WordPress Purple Team — CVE-2020-25213 | curl · bash · Apache logs · mimipenguin | ✅ Complete |
+| 05 | Web App Security Analysis (Burp Suite / OWASP ZAP)	Burp Suite · OWASP ZAP  |  Browser DevTools | 	🔜 Coming soon | 
+
+---
+
+### 01 Network Penetration Testing Lab
 Simulated an SMB brute-force attack from Kali Linux against a Windows 10 target, then switched to analyst mode and investigate the attack using Windows forensic artifacts — proving execution,
 identifying the attack timeline, and documenting findings in IR report format. This lab demonstrates the complete SOC analyst workflow:
 Attack simulation (Kali) → Artifact collection (WIN10test) → Forensic parsing (EZ Tools) → IR report
@@ -58,7 +70,7 @@ Phase 3 Post-Exploitation
 
 ---
 
-### GoPhish: Phishing Simulation & Offensive Email Attack Chain
+### 02 GoPhish: Phishing Simulation & Offensive Email Attack Chain
 Complete offensive email attack chain across 6 phases — from infrastructure setup through
 credential capture and campaign tracking. Mirrors the functionality of commercial platforms
 like KnowBe4, Hoxhunt, and Riot at zero cost.
