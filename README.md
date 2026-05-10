@@ -1,4 +1,4 @@
-> 🧰Offensive security lab write-ups  
+>  🔴 Offensive security lab write-ups  
  
 All labs conducted in isolated VirtualBox environments or on authorised external targets.
 No unauthorised systems were accessed. All work complies with Swiss law and ethical hacking standards.
